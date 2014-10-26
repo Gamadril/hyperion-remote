@@ -1,0 +1,19 @@
+{
+    "version": "1.0.3",
+    "name": "org.chromium.common",
+    "cordova_name": "Chrome Apps Common Utils",
+    "repo": "https://github.com/MobileChromeApps/mobile-chrome-apps.git",
+    "issue": "https://github.com/MobileChromeApps/mobile-chrome-apps/issues",
+    "keywords": [
+        "chrome",
+        "common",
+        "util"
+    ],
+    "platforms": [],
+    "engines": [
+        {
+            "name": "cordova",
+            "version": ">=3.0.0"
+        }
+    ]
+}

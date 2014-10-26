@@ -1,0 +1,60 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {
+            "framework": {
+                "parents": {
+                    "Security.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "CFNetwork.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "config.xml": {
+                "parents": {
+                    "/widget": [
+                        {
+                            "xml": "<feature name=\"IosSocketsCommon\"><param name=\"ios-package\" value=\"IosSocketsCommon\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"ChromeSystemNetwork\"><param name=\"ios-package\" value=\"ChromeSystemNetwork\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"ChromeSocket\"><param name=\"ios-package\" value=\"ChromeSocket\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "installed_plugins": {
+        "org.chromium.socket": {
+            "PACKAGE_NAME": "hyperion-remote"
+        }
+    },
+    "dependent_plugins": {
+        "org.chromium.common": {
+            "PACKAGE_NAME": "hyperion-remote"
+        },
+        "org.chromium.iossocketscommon": {
+            "PACKAGE_NAME": "hyperion-remote"
+        },
+        "org.chromium.system.network": {
+            "PACKAGE_NAME": "hyperion-remote"
+        }
+    }
+}

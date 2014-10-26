@@ -1,0 +1,14 @@
+{
+    "version": "1.0.1",
+    "name": "org.chromium.iossocketscommon",
+    "cordova_name": "Chrome Apps iOS Sockets Common",
+    "platforms": [
+        "ios"
+    ],
+    "engines": [
+        {
+            "name": "cordova",
+            "version": ">=3.0.0"
+        }
+    ]
+}
