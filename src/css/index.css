@@ -111,22 +111,26 @@ html, body {
     -webkit-overflow-scrolling: touch;
 }
 
+#color {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+}
+
 #colorpicker {
-    width: 100%;
     position: relative;
-    padding: 5% 10%;
+    flex: 1;
+    -webkit-flex: 1;
 }
 
 #colorwheelbg {
-    /*background: url('../res/colorwheel.png') no-repeat;*/
-    /*background-size: 100%;*/
-
-    /*height: 100%;*/
-    /*position: absolute;*/
-    /*margin: auto;*/
-    /*left: 10%;*/
-    /*right: 10%;*/
-    /*margin: 5% 10%;*/
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
 
 #pointer {

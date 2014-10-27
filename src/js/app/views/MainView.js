@@ -67,6 +67,8 @@ define(['lib/stapes', 'lib/tinycolor', 'utils/Tools'], function (Stapes, Tinycol
             this.cpcenter = this.colorpicker.offsetLeft + this.cpradius;
 
             this.bindEventHandlers();
+
+            window.dispatchEvent(new Event('resize'));
         },
 
         /**
@@ -76,6 +78,21 @@ define(['lib/stapes', 'lib/tinycolor', 'utils/Tools'], function (Stapes, Tinycol
             var cptouchrect;
 
             window.addEventListener('resize', function () {
+                var attrW, attrH, side, w = this.colorpicker.parentNode.clientWidth, h = this.colorpicker.parentNode.clientHeight;
+
+                attrW = this.colorpicker.getAttribute('width');
+                attrH = this.colorpicker.getAttribute('height');
+                side = attrW === 'auto' ? attrH : attrW;
+                if (w > h) {
+                    if (attrH !== side) {
+                        this.colorpicker.setAttribute('height', side);
+                        this.colorpicker.setAttribute('width', 'auto');
+                    }
+                } else if (attrW !== side){
+                    this.colorpicker.setAttribute('height', 'auto');
+                    this.colorpicker.setAttribute('width', side);
+                }
+
                 this.cpradius = this.colorpicker.offsetWidth / 2;
                 this.cpcenter = this.colorpicker.offsetLeft + this.cpradius;
                 this.updatePointer();
@@ -120,8 +137,9 @@ define(['lib/stapes', 'lib/tinycolor', 'utils/Tools'], function (Stapes, Tinycol
                     case 37:
                     case 38:
                     case 46:
-                    break;
-                    default: {
+                        break;
+                    default:
+                    {
                         if (event.target.value.length >= 6 && (event.target.selectionEnd - event.target.selectionStart) === 0) {
                             event.preventDefault();
                             event.stopPropagation();
@@ -191,8 +209,7 @@ define(['lib/stapes', 'lib/tinycolor', 'utils/Tools'], function (Stapes, Tinycol
          */
         getCirclePoint: function (x, y) {
             var p = {x: x, y: y}, c = {
-                x: this.colorpicker.offsetLeft + this.cpradius,
-                y: this.colorpicker.offsetTop + this.cpradius
+                x: this.colorpicker.offsetLeft + this.cpradius, y: this.colorpicker.offsetTop + this.cpradius
             }, n;
 
             n = Math.sqrt(Math.pow((x - c.x), 2) + Math.pow((y - c.y), 2));
