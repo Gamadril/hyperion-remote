@@ -142,7 +142,7 @@ module.exports = function(grunt) {
 			},
 			browser: {
 				cwd: 'build/chrome',
-				src: ['index.html', 'res/fontello.*', 'res/colorwheel.png', 'css/index.css', 'js/app/main.js', 'js/vendor/require.js'],
+				src: ['index.html', 'res/fontello.*', 'res/colorwheel.png', 'res/icon_128.png', 'css/index.css', 'js/app/main.js', 'js/vendor/require.js'],
 				dest: 'out/browser/',
 				expand: true				
 			},
