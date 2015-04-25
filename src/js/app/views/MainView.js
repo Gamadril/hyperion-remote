@@ -95,7 +95,9 @@ define(['lib/stapes', 'lib/tinycolor', 'utils/Tools'], function (Stapes, Tinycol
 
                 this.cpradius = this.colorpicker.offsetWidth / 2;
                 this.cpcenter = this.colorpicker.offsetLeft + this.cpradius;
-                this.updatePointer();
+                if (this.color) {
+                    this.updatePointer();
+                }
             }.bind(this));
 
             window.addClickHandler(document.querySelector('.footer'), function (event) {
