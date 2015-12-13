@@ -158,7 +158,9 @@ define([
                     if (!this.selectedServer) {
                         this.showError('No server selected');
                     } else if (!this.serverControl) {
-                        this.connectToServer(this.selectedServer);
+                        this.connectToServer(this.selectedServer, function () {
+                            this.serverControl.setColor(color, this.selectedServer.duration);
+                        }.bind(this));
                     } else {
                         this.serverControl.setColor(color, this.selectedServer.duration);
                     }
@@ -167,7 +169,9 @@ define([
                     if (!this.selectedServer) {
                         this.showError('No server selected');
                     } else if (!this.serverControl) {
-                        this.connectToServer(this.selectedServer);
+                        this.connectToServer(this.selectedServer, function () {
+                            this.serverControl.clear();
+                        }.bind(this));
                     } else {
                         this.serverControl.clear();
                     }
@@ -176,7 +180,10 @@ define([
                     if (!this.selectedServer) {
                         this.showError('No server selected');
                     } else if (!this.serverControl) {
-                        this.connectToServer(this.selectedServer);
+                        this.connectToServer(this.selectedServer, function () {
+                            this.serverControl.clearall();
+                            this.mainView.setColor({r: 0, g: 0, b: 0});
+                        }.bind(this));
                     } else {
                         this.serverControl.clearall();
                         this.mainView.setColor({r: 0, g: 0, b: 0});
@@ -205,7 +212,6 @@ define([
                 'serverSelected': function (index) {
                     this.lockSettingsView(false);
                     this.settings.setSelectedServer(index);
-                    this.connectToServer(this.settings.servers[index]);
                 },
                 'serverRemoved': function (index) {
                     this.settings.removeServer(index);
@@ -241,7 +247,11 @@ define([
 
             this.effectsView.on({
                 'effectSelected': function (effectId) {
-                    if (this.serverControl) {
+                    if (!this.serverControl) {
+                        this.connectToServer(this.selectedServer, function () {
+                            this.serverControl.runEffect(this.effects[parseInt(effectId)]);
+                        }.bind(this));
+                    } else {
                         this.serverControl.runEffect(this.effects[parseInt(effectId)]);
                     }
                 }
@@ -326,7 +336,7 @@ define([
          * @private
          * @param server
          */
-        connectToServer: function (server) {
+        connectToServer: function (server, onConnected) {
             if (this.serverControl) {
                 if (this.serverControl.isConnecting()) {
                     return;
@@ -344,7 +354,7 @@ define([
                 },
                 serverInfo: function (info) {
                     var index;
-                    if (this.selectedServer.name.length === 0) {
+                    if (!this.selectedServer.name || this.selectedServer.name.length === 0) {
                         this.selectedServer.name = info.hostname;
                         index = this.settings.indexOfServer(this.selectedServer);
                         this.settings.updateServer(index, this.selectedServer);
@@ -354,6 +364,9 @@ define([
                     this.transform = info.transform[0];
                     this.updateView();
                     this.showStatus('Connected to ' + this.selectedServer.name);
+                    if (onConnected) {
+                        onConnected();
+                    }
                 },
                 error: function (message) {
                     this.serverControl = null;
@@ -368,8 +381,10 @@ define([
          */
         updateView: function () {
             var i, effects = [];
-            for (i = 0; i < this.effects.length; i++) {
-                effects.push({id: i, name: this.effects[i].name});
+            if (this.effects) {
+                for (i = 0; i < this.effects.length; i++) {
+                    effects.push({id: i, name: this.effects[i].name});
+                }
             }
 
             this.effectsView.clear();

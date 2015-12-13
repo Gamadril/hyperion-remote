@@ -1,4 +1,9 @@
-define(['lib/stapes', 'lib/tinycolor', 'utils/Tools'], function (Stapes, Tinycolor, tools) {
+define([
+    'lib/stapes',
+    'lib/tinycolor',
+    'utils/Tools',
+    'views/Slider'
+], function (Stapes, Tinycolor, tools, Slider) {
     'use strict';
     var timer;
 
@@ -59,8 +64,13 @@ define(['lib/stapes', 'lib/tinycolor', 'utils/Tools'], function (Stapes, Tinycol
         constructor: function () {
             this.pointer = document.querySelector('#colorpicker #pointer');
             this.colorpicker = document.querySelector('#colorpicker #colorwheelbg');
-            this.slider = document.querySelector('.slider');
-            this.sliderinput = document.querySelector('.slider input');
+            this.slider = new Slider({
+                id: 'brightness',
+                min: 0,
+                max: 1,
+                step: 0.02,
+                value: 1
+            });
             this.inputbox = document.querySelector('#color input.value');
 
             this.cpradius = this.colorpicker.offsetWidth / 2;
@@ -88,7 +98,7 @@ define(['lib/stapes', 'lib/tinycolor', 'utils/Tools'], function (Stapes, Tinycol
                         this.colorpicker.setAttribute('height', side);
                         this.colorpicker.setAttribute('width', 'auto');
                     }
-                } else if (attrW !== side){
+                } else if (attrW !== side) {
                     this.colorpicker.setAttribute('height', 'auto');
                     this.colorpicker.setAttribute('width', side);
                 }
@@ -104,19 +114,23 @@ define(['lib/stapes', 'lib/tinycolor', 'utils/Tools'], function (Stapes, Tinycol
                 this.emit('barClick', event.target.parentNode.dataset.area);
             }.bind(this));
 
-            this.sliderinput.addEventListener('input', function (event) {
-                this.leaveInput();
-                this.brightness = parseFloat(event.target.value);
+
+            this.slider.on('changeValue', function (value) {
+                this.brightness = value;
                 this.updateInput();
                 this.fireColorEvent();
-            }.bind(this), false);
+            }, this);
 
             this.inputbox.addEventListener('input', function (event) {
                 var bright, rgb = new Tinycolor(event.target.value).toRgb();
 
                 if (rgb.r === 0 && rgb.g === 0 && rgb.b === 0) {
                     this.brightness = 0;
-                    this.color = new Tinycolor({r: 0xff, g: 0xff, b: 0xff});
+                    this.color = new Tinycolor({
+                        r: 0xff,
+                        g: 0xff,
+                        b: 0xff
+                    });
                 } else {
                     bright = Math.max(rgb.r, rgb.g, rgb.b) / 256;
                     rgb.r = Math.round(rgb.r / bright);
@@ -138,6 +152,8 @@ define(['lib/stapes', 'lib/tinycolor', 'utils/Tools'], function (Stapes, Tinycol
                     case 16:
                     case 37:
                     case 38:
+                    case 39:
+                    case 40:
                     case 46:
                         break;
                     default:
@@ -210,8 +226,12 @@ define(['lib/stapes', 'lib/tinycolor', 'utils/Tools'], function (Stapes, Tinycol
          * @returns {{x: number, y: number}}
          */
         getCirclePoint: function (x, y) {
-            var p = {x: x, y: y}, c = {
-                x: this.colorpicker.offsetLeft + this.cpradius, y: this.colorpicker.offsetTop + this.cpradius
+            var p = {
+                x: x,
+                y: y
+            }, c = {
+                x: this.colorpicker.offsetLeft + this.cpradius,
+                y: this.colorpicker.offsetTop + this.cpradius
             }, n;
 
             n = Math.sqrt(Math.pow((x - c.x), 2) + Math.pow((y - c.y), 2));
@@ -237,7 +257,11 @@ define(['lib/stapes', 'lib/tinycolor', 'utils/Tools'], function (Stapes, Tinycol
             h = (t * (180 / Math.PI) + 360) % 360;
             s = Math.min(Math.sqrt(x * x + y * y) / this.cpradius, 1);
 
-            return new Tinycolor({h: h, s: s, v: 1});
+            return new Tinycolor({
+                h: h,
+                s: s,
+                v: 1
+            });
         },
 
         /**
@@ -278,7 +302,11 @@ define(['lib/stapes', 'lib/tinycolor', 'utils/Tools'], function (Stapes, Tinycol
 
             if (rgb.r === 0 && rgb.g === 0 && rgb.b === 0) {
                 this.brightness = 0;
-                this.color = new Tinycolor({r: 0xff, g: 0xff, b: 0xff});
+                this.color = new Tinycolor({
+                    r: 0xff,
+                    g: 0xff,
+                    b: 0xff
+                });
             } else {
                 bright = Math.max(rgb.r, rgb.g, rgb.b) / 256;
                 rgb.r = Math.round(rgb.r / bright);
@@ -297,8 +325,8 @@ define(['lib/stapes', 'lib/tinycolor', 'utils/Tools'], function (Stapes, Tinycol
          * @private
          */
         updateSlider: function () {
-            this.sliderinput.value = this.brightness;
-            this.slider.style.backgroundImage = '-webkit-linear-gradient(left, #000000 0%, ' + this.color.toHexString() + ' 100%)';
+            this.slider.setValue(this.brightness);
+            this.slider.dom.style.backgroundImage = '-webkit-linear-gradient(left, #000000 0%, ' + this.color.toHexString() + ' 100%)';
         },
 
         /**

@@ -99,14 +99,39 @@ window.addClickHandler = function (dom, handler) {
             }
         }
     }, false);
-	
+
     dom.addEventListener('click', function () {
         handler.apply(this, arguments);
     }, false);
 };
 
+function checkInstallFirefoxOS() {
+    'use strict';
+    var manifest_url, installCheck;
+
+    manifest_url = [location.protocol, '//', location.host, location.pathname.replace('index.html',''), 'manifest.webapp'].join('');
+    installCheck = navigator.mozApps.checkInstalled(manifest_url);
+
+    installCheck.onsuccess = function() {
+        var installLoc;
+        if(!installCheck.result) {
+            if (confirm('Do you want to install hyperion remote contorl on your device?')) {
+                installLoc = navigator.mozApps.install(manifest_url);
+                installLoc.onsuccess = function(data) {
+                };
+                installLoc.onerror = function() {
+                    alert(installLoc.error.name);
+                };
+            }
+        }
+    };
+}
+
 require(['controllers/AppController'], function (AppController) {
     'use strict';
     var app = new AppController();
     app.init();
+    if (navigator.mozApps && navigator.userAgent.indexOf('Mobile') !== -1 && navigator.userAgent.indexOf('Android') === -1) {
+        checkInstallFirefoxOS();
+    }
 });
