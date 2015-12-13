@@ -131,7 +131,7 @@ require(['controllers/AppController'], function (AppController) {
     'use strict';
     var app = new AppController();
     app.init();
-    if (navigator.mozApps && navigator.userAgent.indexOf('Mobile') !== -1 && navigator.userAgent.indexOf('Android') === -1) {
+    if (navigator.mozApps && navigator.userAgent.indexOf('Mozilla/5.0 (Mobile;') !== -1) {
         checkInstallFirefoxOS();
     }
 });
