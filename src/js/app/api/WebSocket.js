@@ -75,7 +75,7 @@ define(['lib/stapes', 'api/Socket', 'utils/Tools'], function (Stapes, Socket, to
 
             this.currentErrorCallback = onError;
 
-            this.handle = new WebSocket('ws://' + server.address + ':' + server.port);
+            this.handle = new WebSocket('ws://' + server.address + ':' + server.port + '/ws'); // ie11 needs it that way...
             this.handle.onmessage = this.onDataReceived.bind(this);
             this.handle.onclose = function () {
                 if (this.DEBUG) {
