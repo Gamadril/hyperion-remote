@@ -62,6 +62,7 @@ define([
          * @fires colorChange
          */
         constructor: function () {
+            var ev;
             this.pointer = document.querySelector('#colorpicker #pointer');
             this.colorpicker = document.querySelector('#colorpicker #colorwheelbg');
             this.slider = new Slider({
@@ -78,7 +79,9 @@ define([
 
             this.bindEventHandlers();
 
-            window.dispatchEvent(new Event('resize'));
+            ev = document.createEvent('Event');
+            ev.initEvent('resize', true, true);
+            window.dispatchEvent(ev);
         },
 
         /**
@@ -363,7 +366,7 @@ define([
 
             area = document.getElementById(id);
             index = area.offsetLeft / area.clientWidth;
-            area.parentNode.style.left = -index * 100 + '%';
+            area.parentNode.style.left = (-index * 100) + '%';
         },
 
         /**

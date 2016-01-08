@@ -17,6 +17,7 @@ html, body {
 * {
     -webkit-user-select: none;
     -moz-user-select: none;
+    user-select: none;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     -webkit-touch-callout: none;
@@ -28,12 +29,12 @@ html, body {
 #app {
     height: 100%;
     width: 100%;
-    display: flex;
     display: -webkit-flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
     -webkit-flex-direction: column;
     -webkit-flex-wrap: nowrap;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
 
     background-color: #2C2C2C;
     min-width: 320px;
@@ -41,18 +42,18 @@ html, body {
 }
 
 .work {
-    flex: 1;
     -webkit-flex: 1;
+    flex: 1;
     position: relative;
     overflow: hidden;
 }
 
 .footer {
     border-top: 1px solid #919F9F;
-    display: flex;
     display: -webkit-flex;
-    justify-content: space-around;
     -webkit-justify-content: space-around;
+    display: flex;
+    justify-content: space-around;
 }
 
 .footer .button {
@@ -112,16 +113,16 @@ html, body {
 }
 
 #color {
-    display: flex;
     display: -webkit-flex;
-    flex-direction: column;
     -webkit-flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 #colorpicker {
     position: relative;
-    flex: 1;
     -webkit-flex: 1;
+    flex: 1;
 }
 
 #colorwheelbg {
@@ -154,11 +155,11 @@ li {
 }
 
 .horizontal {
-    display: flex;
     display: -webkit-flex;
-    position: relative;
-    flex: 1;
     -webkit-flex: 1;
+    display: flex;
+    flex: 1;
+    position: relative;
 }
 
 li .delete_icon {
@@ -186,8 +187,8 @@ li .edit_icon {
 }
 
 li .titlebox {
-    flex: 1;
     -webkit-flex: 1;
+    flex: 1;
 }
 
 .titlebox label {
@@ -234,21 +235,21 @@ li input[type=range] {
 
 .grouplist .header {
     display: flex;
-    display: -webkit-flex;
     justify-content: space-between;
-    -webkit-justify-content: space-between;
     border-bottom: 1px solid gray;
     align-items: center;
-    -webkit-align-items: center;
     padding-left: 15px;
     font-size: 16px;
+    display: -webkit-flex;
+    -webkit-justify-content: space-between;
+    -webkit-align-items: center;
 }
 
 .group ul,
 .grouplist ul {
     overflow-y: hidden;
-    transition: all 0.5s ease-in-out;
     -webkit-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
 }
 
 .group[collapsed=true] ul {
@@ -307,8 +308,8 @@ li input[type=range] {
 
 .wrapper {
     display: flex;
-    display: -webkit-flex;
     align-items: center;
+    display: -webkit-flex;
     -webkit-align-items: center;
 }
 
@@ -321,8 +322,8 @@ li input[type=range] {
 }
 
 #transform .group input[type=range] {
-    flex: 1;
     -webkit-flex: 1;
+    flex: 1;
     -webkit-appearance: none;
     width: 100%;
     border-radius: 4px;
@@ -400,12 +401,12 @@ li input[type=range] {
     position: absolute;
     bottom: 5px;
     width: 100%;
-    display: flex;
     display: -webkit-flex;
+    display: flex;
     visibility: visible;
     opacity: 1;
-    transition: opacity 0.2s linear;
     -webkit-transition: opacity 0.2s linear;
+    transition: opacity 0.2s linear;
 }
 
 .invisible {
@@ -418,12 +419,12 @@ li input[type=range] {
 }
 
 .inputline {
-    display: flex;
     display: -webkit-flex;
-    justify-content: space-between;
     -webkit-justify-content: space-between;
-    align-items: center;
     -webkit-align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-size: 14px;
     padding: 6px 10px;
 }
@@ -437,6 +438,7 @@ li input[type=range] {
     font-size: inherit;
     -webkit-user-select: text;
     -moz-user-select: text;
+    user-select: text;
     outline: none;
 }
 
@@ -515,12 +517,12 @@ li.selected {
 }
 
 #color #buttonctrl {
-    display: flex;
     display: -webkit-flex;
-    justify-content: space-between;
     -webkit-justify-content: space-between;
-    align-items: flex-end;
     -webkit-align-items: flex-end;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
     margin: 10px auto 35px auto;
 }
 
@@ -571,6 +573,7 @@ li.selected {
     display: block;
     -webkit-user-select: text;
     -moz-user-select: text;
+    user-select: text;
 }
 
 .checkbox::before {
