@@ -66,7 +66,7 @@ define([
             this.pointer = document.querySelector('#colorpicker #pointer');
             this.colorpicker = document.querySelector('#colorpicker #colorwheelbg');
             this.slider = new Slider({
-                id: 'brightness',
+                element: document.getElementById('brightness'),
                 min: 0,
                 max: 1,
                 step: 0.02,
@@ -119,7 +119,7 @@ define([
 
 
             this.slider.on('changeValue', function (value) {
-                this.brightness = value;
+                this.brightness = value.value;
                 this.updateInput();
                 this.fireColorEvent();
             }, this);

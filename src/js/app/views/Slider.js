@@ -28,7 +28,10 @@ define(['lib/stapes'], function (Stapes) {
         value = Math.max(value, slider.min);
         value = Math.min(value, slider.max);
         slider.value = value;
-        slider.emit('changeValue', value);
+        slider.emit('changeValue', {
+            'value': value,
+            'target': event.target
+        });
     }
 
     return Stapes.subclass(/** @lends Slider.prototype */{
@@ -68,7 +71,7 @@ define(['lib/stapes'], function (Stapes) {
          * @fires change
          */
         constructor: function (params) {
-            this.dom = document.getElementById(params.id);
+            this.dom = params.element;
             this.setValue(params.value);
             this.setMin(params.min);
             this.setMax(params.max);

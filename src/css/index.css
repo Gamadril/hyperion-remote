@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'fontello';
-    src: url('../res/fontello.ttf') format('truetype');
+    src: url('../res/fontello.ttf') format('truetype'), url('../res/fontello.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -17,6 +17,7 @@ html, body {
 * {
     -webkit-user-select: none;
     -moz-user-select: none;
+    -ms-user-select: none;
     user-select: none;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -108,6 +109,8 @@ html, body {
     width: 100%;
     height: 100%;
     overflow-y: overlay;
+    -ms-overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
     position: relative;
     -webkit-overflow-scrolling: touch;
 }
@@ -230,7 +233,7 @@ li input[type=range] {
 
 .group,
 .grouplist {
-    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .grouplist .header {
@@ -286,6 +289,10 @@ li input[type=range] {
     transition: all 0.5s ease-in-out;
     -webkit-transform-origin: 50% 33%;
     -webkit-transform: rotateZ(180deg);
+    transform-origin: 50% 33%;
+    transform: rotateZ(180deg);
+    -ms-transform-origin: 50% 33%;
+    -ms-transform: rotateZ(180deg);
     position: absolute;
     right: 24px;
     top: 0;
@@ -304,6 +311,8 @@ li input[type=range] {
 
 .group[collapsed=true] > .header label:first-child:after {
     -webkit-transform: rotateZ(0deg);
+    -ms-transform: rotateZ(0deg);
+    transform: rotateZ(0deg);
 }
 
 .wrapper {
@@ -438,6 +447,7 @@ li input[type=range] {
     font-size: inherit;
     -webkit-user-select: text;
     -moz-user-select: text;
+    -ms-user-select: text;
     user-select: text;
     outline: none;
 }
@@ -478,6 +488,15 @@ button:focus {
     border-radius: 50%;
     float: right;
     margin-right: 15px;
+}
+
+@-webkit-keyframes rotation {
+    from {
+        -ms-transform: rotate(0deg);
+    }
+    to {
+        -ms-transform: rotate(359deg);
+    }
 }
 
 @-webkit-keyframes rotation {
@@ -573,6 +592,7 @@ li.selected {
     display: block;
     -webkit-user-select: text;
     -moz-user-select: text;
+    -ms-user-select: text;
     user-select: text;
 }
 
