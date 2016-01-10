@@ -330,45 +330,36 @@ li input[type=range] {
     margin: auto 5px;
 }
 
-#transform .group input[type=range] {
+#transform .group .slider {
     -webkit-flex: 1;
     flex: 1;
-    -webkit-appearance: none;
     width: 100%;
+}
+
+.slider {
+    position: relative;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.slider .track {
     border-radius: 4px;
     height: 4px;
     border: 1px solid #BDC3C7;
     background-color: #FFFFFF;
+
 }
 
-.group input:focus {
-    outline: none;
-}
-
-.group input::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    border-radius: 10px;
-    height: 20px;
-    width: 20px;
-    border: 2px solid #BDC3C7;
-    background-color: #FFFFFF;
-}
-
-.group input::-moz-range-thumb {
+.slider .thumb {
     box-sizing: border-box;
     border-radius: 10px;
     height: 20px;
     width: 20px;
     border: 2px solid #BDC3C7;
     background-color: #FFFFFF;
-}
-
-.group input::-moz-range-track {
-    background-color: #FFFFFF;
-}
-
-.group input::-moz-focus-outer {
-    border: none;
+    position: absolute;
+    top: -8px;
+    margin-left: -10px;
 }
 
 .wrapper .icon {
@@ -450,6 +441,10 @@ li input[type=range] {
     -ms-user-select: text;
     user-select: text;
     outline: none;
+}
+
+#settings .inputline input:focus {
+    color: white;
 }
 
 .line {

@@ -30,7 +30,7 @@ define(['lib/stapes'], function (Stapes) {
         slider.value = value;
         slider.emit('changeValue', {
             'value': value,
-            'target': event.target
+            'target': slider.dom
         });
     }
 

@@ -3,7 +3,10 @@
  * MIT License
  */
 
-define(['lib/stapes'], function (Stapes) {
+define([
+    'lib/stapes',
+    'views/Slider'
+], function (Stapes, Slider) {
     'use strict';
 
     function onHeaderClick (event) {
@@ -19,7 +22,7 @@ define(['lib/stapes'], function (Stapes) {
     }
 
     function createLine (id, type, icon, caption, value, min, max) {
-        var dom, el, label, wrapper;
+        var dom, el, el2, label, wrapper;
 
         dom = document.createElement('li');
         dom.className = type;
@@ -37,12 +40,18 @@ define(['lib/stapes'], function (Stapes) {
         el.innerHTML = icon;
         wrapper.appendChild(el);
 
-        el = document.createElement('input');
-        el.type = 'range';
-        el.min = min;
-        el.max = max;
-        el.step = 0.01;
-        el.value = value;
+        el = document.createElement('div');
+        el.classList.add('slider');
+        el2 = document.createElement('div');
+        el2.classList.add('track');
+        el.appendChild(el2);
+        el2 = document.createElement('div');
+        el2.classList.add('thumb');
+        el.appendChild(el2);
+        el.dataset.min = min;
+        el.dataset.max = max;
+        el.dataset.value = value;
+        el.dataset.step = 0.01;
         wrapper.appendChild(el);
 
         el = document.createElement('input');
@@ -59,7 +68,7 @@ define(['lib/stapes'], function (Stapes) {
         return dom;
     }
 
-    function createGroup(groupInfo) {
+    function createGroup (groupInfo) {
         var group, node, subnode, i, member;
         group = document.createElement('div');
         group.classList.add('group');
@@ -82,7 +91,8 @@ define(['lib/stapes'], function (Stapes) {
         group.appendChild(node);
         for (i = 0; i < groupInfo.members.length; i++) {
             member = groupInfo.members[i];
-            subnode = createLine(member.id, member.type, member.icon, member.label, member.value, member.min, member.max);
+            subnode = createLine(member.id, member.type, member.icon, member.label, member.value, member.min,
+                member.max);
             node.appendChild(subnode);
         }
 
@@ -90,6 +100,7 @@ define(['lib/stapes'], function (Stapes) {
     }
 
     return Stapes.subclass(/** @lends TransformView.prototype */{
+        sliders: {},
 
         /**
          * @class TransformView
@@ -107,24 +118,36 @@ define(['lib/stapes'], function (Stapes) {
 
         /**
          * @private
-         * @param event
+         * @param change
          */
         onSliderChange: function (event) {
             var data = {}, idparts, value;
 
             idparts = event.target.parentNode.id.split('_');
+            value = parseFloat(Math.round(parseFloat(event.value) * 100) / 100);
+
+            event.target.parentNode.querySelector('.value').value = value.toFixed(2);
+
+            data[idparts[1]] = value;
+            this.emit(idparts[0], data);
+        },
+
+        /**
+         * @private
+         * @param change
+         */
+        onValueChange: function (event) {
+            var data = {}, idparts, value;
+
+            idparts = event.target.parentNode.id.split('_');
             value = parseFloat(Math.round(parseFloat(event.target.value) * 100) / 100);
 
-            if (event.target.type === 'range') {
-                event.target.parentNode.querySelector('.value').value = value.toFixed(2);
-            } else {
-                if (parseFloat(event.target.value) < parseFloat(event.target.min)) {
-                    event.target.value = event.target.min;
-                } else if (parseFloat(event.target.value) > parseFloat(event.target.max)) {
-                    event.target.value = event.target.max;
-                }
-                event.target.parentNode.querySelector('input[type=range]').value = value;
+            if (parseFloat(event.target.value) < parseFloat(event.target.min)) {
+                event.target.value = event.target.min;
+            } else if (parseFloat(event.target.value) > parseFloat(event.target.max)) {
+                event.target.value = event.target.max;
             }
+            this.sliders[event.target.parentNode.id].setValue(value);
 
             data[idparts[1]] = value;
             this.emit(idparts[0], data);
@@ -135,7 +158,7 @@ define(['lib/stapes'], function (Stapes) {
          * @param {object} transform - Object containing transform information
          */
         fillList: function (transform) {
-            var dom, group, els, i;
+            var dom, group, els, i, slider;
 
             if (!transform) {
                 document.querySelector('#transform .info').classList.remove('hidden');
@@ -320,9 +343,22 @@ define(['lib/stapes'], function (Stapes) {
             });
             dom.appendChild(group);
 
+            els = dom.querySelectorAll('.slider');
+            for (i = 0; i < els.length; i++) {
+                slider = new Slider({
+                    element: els[i],
+                    min: els[i].dataset.min,
+                    max: els[i].dataset.max,
+                    step: els[i].dataset.step,
+                    value: els[i].dataset.value
+                });
+                slider.on('changeValue', this.onSliderChange, this);
+                this.sliders[els[i].parentNode.id] = slider;
+            }
+
             els = dom.querySelectorAll('input');
             for (i = 0; i < els.length; i++) {
-                els[i].addEventListener('input', this.onSliderChange.bind(this), false);
+                els[i].addEventListener('input', this.onValueChange.bind(this), false);
             }
 
             els = dom.querySelectorAll('.header');
