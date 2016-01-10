@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# rev 1 - 2015-12-12T23:13:42.760Z
+# rev 1 - 2016-01-10T23:13:42.760Z
 
 CACHE:
 css/index.css
@@ -8,4 +8,5 @@ js/app/main.js
 js/vendor/require.js
 res/colorwheel.png
 res/fontello.ttf
+res/fontello.woff
 res/icon_128.png
