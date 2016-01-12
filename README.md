@@ -8,12 +8,10 @@ Currently there are 4 supported targets of the app:
 - [Firefox OS](http://gamadril.github.io/hyperion-remote) hosted app with the posibility to install locally. Release as packaged ap for the Marketplace should follow soon
 - [Browser](http://gamadril.github.io/hyperion-remote)
 
-Support further development with a small donation <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=D9QEDJHALXVBU" target="_blank"><img src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif"></a>
-
 Requirements
 ------------
 node.js (build), grunt(build), Chrome 36
-Since WebSocket support was added to hyperion some time ago it is not necessary to use plugins for TCP socket access any more.
+Since WebSocket support was added to hyperion some time ago it is not necessary to use plugins for TCP socket access any more. If you have problems with connection (especially on IE 11) try out the hyperion-poco branch.
 
 Build
 ------------
@@ -28,8 +26,7 @@ Chrome app can be loaded in Chrome as "unpacked extension" for testing and debug
 
 Installation
 ------------
-Current builds are available in Chrome Web Store and online.
-
+Current builds are available in Chrome Web Store. You can also just open http://gamadril.github.io/hyperion-remote in your browser and use it. Server settings will be saved on your device, you don't have to enter them each time.
 
 3rd party components
 --------------------
