@@ -38,7 +38,6 @@ define([
         effects: [],
         transform: {},
         selectedServer: null,
-        isBrowser: false,
 
         /**
          * @class AppController
@@ -55,8 +54,7 @@ define([
             this.bindEventHandlers();
             this.mainView.setColor(this.color);
 
-            if (!network.getLocalInterfaces) {
-                this.isBrowser = true;
+            if (!network.canDetectLocalAddress()) {
                 this.settingsView.enableDetectButton(false);
             }
         },
@@ -415,7 +413,7 @@ define([
          * @param lock
          */
         lockSettingsView: function (lock) {
-            if (!this.isBrowser) {
+            if (network.canDetectLocalAddress()) {
                 this.settingsView.enableDetectButton(!lock);
             }
             this.settingsView.lockList(lock);

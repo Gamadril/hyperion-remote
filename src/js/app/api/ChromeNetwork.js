@@ -6,12 +6,18 @@ define(['api/Network'], function (Network) {
 
         /**
          * @class ChromeNetwork
+         * @extends Network
          * @classdesc Network functions for chrome apps
          * @constructs
          */
         constructor: function () {
         },
 
+        /**
+         * @overrides
+         * @param onSuccess
+         * @param onError
+         */
         getLocalInterfaces: function (onSuccess, onError) {
             var ips = [];
 
@@ -38,6 +44,14 @@ define(['api/Network'], function (Network) {
                     onSuccess(ips);
                 }
             });
+        },
+
+        /**
+         * @overrides
+         * @return {boolean}
+         */
+        canDetectLocalAddress: function () {
+            return true;
         }
     }, true);
 });

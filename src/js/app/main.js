@@ -38,7 +38,9 @@ window.addPointerUpHandler = function (dom, handler) {
     'use strict';
     dom.addEventListener('touchend', function (event) {
         handler.apply(this, arguments);
-        event.preventDefault();
+        if (event.target.tagName !== 'INPUT') {
+            event.preventDefault();
+        }
     }, false);
 
     dom.addEventListener('mouseup', function () {
