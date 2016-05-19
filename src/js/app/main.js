@@ -13,56 +13,63 @@ requirejs.config({
 });
 
 /**
- *
  * @param {HTMLElement} dom
  * @param {function} handler
  */
 window.addPointerDownHandler = function (dom, handler) {
     'use strict';
-    dom.addEventListener('touchstart', function (event) {
-        handler.apply(this, arguments);
-        event.preventDefault();
-    }, false);
-
-    dom.addEventListener('mousedown', function () {
-        handler.apply(this, arguments);
-    }, false);
+    dom.addEventListener('touchstart', handler, false);
+    dom.addEventListener('mousedown', handler, false);
 };
 
 /**
- *
+ * @param {HTMLElement} dom
+ * @param {function} handler
+ */
+window.removePointerDownHandler = function (dom, handler) {
+    'use strict';
+    dom.removeEventListener('touchstart', handler, false);
+    dom.removeEventListener('mousedown', handler, false);
+};
+
+/**
  * @param {HTMLElement} dom
  * @param {function} handler
  */
 window.addPointerUpHandler = function (dom, handler) {
     'use strict';
-    dom.addEventListener('touchend', function (event) {
-        handler.apply(this, arguments);
-        if (event.target.tagName !== 'INPUT') {
-            event.preventDefault();
-        }
-    }, false);
-
-    dom.addEventListener('mouseup', function () {
-        handler.apply(this, arguments);
-    }, false);
+    dom.addEventListener('touchend', handler, false);
+    dom.addEventListener('mouseup', handler, false);
 };
 
 /**
- *
+ * @param {HTMLElement} dom
+ * @param {function} handler
+ */
+window.removePointerUpHandler = function (dom, handler) {
+    'use strict';
+    dom.removeEventListener('touchend', handler, false);
+    dom.removeEventListener('mouseup', handler, false);
+};
+
+/**
  * @param {HTMLElement} dom
  * @param {function} handler
  */
 window.addPointerMoveHandler = function (dom, handler) {
     'use strict';
-    dom.addEventListener('touchmove', function (event) {
-        handler.apply(this, arguments);
-        event.preventDefault();
-    }, false);
+    dom.addEventListener('touchmove', handler, false);
+    dom.addEventListener('mousemove', handler, false);
+};
 
-    dom.addEventListener('mousemove', function () {
-        handler.apply(this, arguments);
-    }, false);
+/**
+ * @param {HTMLElement} dom
+ * @param {function} handler
+ */
+window.removePointerMoveHandler = function (dom, handler) {
+    'use strict';
+    dom.removeEventListener('touchmove', handler, false);
+    dom.removeEventListener('mousemove', handler, false);
 };
 
 /**
@@ -113,6 +120,10 @@ function checkInstallFirefoxOS() {
 
     manifest_url = [location.protocol, '//', location.host, location.pathname.replace('index.html',''), 'manifest.webapp'].join('');
     installCheck = navigator.mozApps.checkInstalled(manifest_url);
+
+	installCheck.onerror = function() {
+	  alert('Error calling checkInstalled: ' + installCheck.error.name);
+	};
 
     installCheck.onsuccess = function() {
         var installLoc;

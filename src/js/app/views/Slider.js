@@ -84,28 +84,30 @@ define(['lib/stapes'], function (Stapes) {
          * @private
          */
         bindEventHandlers: function () {
+            var that = this;
+
+            function pointerMoveEventHandler(event) {
+                if (that.drag) {
+                    handleEvent(event, that);
+                    syncView(that);
+                    event.preventDefault();
+                }
+            }
+
+            function pointerUpEventHandler() {
+                that.drag = false;
+                syncView(that);
+                window.removePointerMoveHandler(document, pointerMoveEventHandler);
+                window.removePointerUpHandler(document, pointerUpEventHandler);
+            }
+
             window.addPointerDownHandler(this.dom, function (event) {
                 this.drag = true;
                 handleEvent(event, this);
                 syncView(this);
+                window.addPointerMoveHandler(document, pointerMoveEventHandler);
+                window.addPointerUpHandler(document, pointerUpEventHandler);
             }.bind(this));
-
-            window.addPointerMoveHandler(document, function (event) {
-                if (this.drag) {
-                    handleEvent(event, this);
-                    syncView(this);
-                }
-            }.bind(this));
-
-            window.addPointerUpHandler(this.dom, function () {
-                this.drag = false;
-                syncView(this);
-            }.bind(this));
-
-            window.addPointerUpHandler(document, function () {
-                this.drag = false;
-                syncView(this);
-            }.bind(this), true);
         },
 
         setValue: function(value) {

@@ -108,7 +108,7 @@ html, body {
 .contentarea {
     width: 100%;
     height: 100%;
-    overflow-y: overlay;
+    overflow-y: auto;
     -ms-overflow-y: auto;
     -ms-overflow-style: -ms-autohiding-scrollbar;
     position: relative;
@@ -262,6 +262,7 @@ li input[type=range] {
 .group li label {
     margin: 4px 0 0 50px;
     display: block;
+    background: none;
 }
 
 .group > .header {
@@ -272,6 +273,7 @@ li input[type=range] {
 
 .group > .header label {
     display: block;
+    background: none;
 }
 
 .group > .header label:first-child {
@@ -604,25 +606,4 @@ li.selected {
 
 .selected .checkbox::before {
     content: '\e802';
-}
-
-::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-}
-
-::-webkit-scrollbar-track-piece {
-    background-color: transparent;
-}
-
-::-webkit-scrollbar-thumb:vertical {
-    height: 5px;
-    background-color: rgba(200, 200, 200, 0.5);
-    border-radius: 2px;
-}
-
-::-webkit-scrollbar-thumb:horizontal {
-    width: 5px;
-    background-color: rgba(200, 200, 200, 0.5);
-    border-radius: 2px;
 }

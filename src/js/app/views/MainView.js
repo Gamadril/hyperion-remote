@@ -182,6 +182,7 @@ define([
             window.addPointerMoveHandler(cptouchrect, function (event) {
                 if (this.drag) {
                     this.handleEvent(event);
+                    event.preventDefault();
                 }
             }.bind(this));
 
