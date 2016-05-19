@@ -5,7 +5,7 @@ Hyperion remote control is a client side application for controlling the [hyperi
 Currently there are 4 supported targets of the app:
 - Chrome app (also available in Web Store: [hyperion remote control](https://chrome.google.com/webstore/detail/hyperion-remote-control/ohlgoegainndhjejojilnchmkoghjbpd))
 - iOS as WebApp that can be "installed" on the HOME screen
-- [Firefox OS](http://gamadril.github.io/hyperion-remote) hosted app with the posibility to install locally. Release as packaged ap for the Marketplace should follow soon
+- [Firefox OS](http://gamadril.github.io/hyperion-remote) hosted app with the posibility to install locally.
 - [Browser](http://gamadril.github.io/hyperion-remote)
 
 Requirements
