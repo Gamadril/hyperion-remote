@@ -1,4 +1,4 @@
-<img src='https://raw.githubusercontent.com/Gamadril/hyperion-remote/master/public/res/icon_192.png' width='40px' height='40px' /> Hyperion remote control
+<img src='https://raw.githubusercontent.com/Gamadril/hyperion-remote/master/public/res/icon-192.png' width='40px' height='40px' /> Hyperion remote control
 =======================
 
 Hyperion remote control is a client side web application for controlling the [hyperion.ng server](https://hyperion-project.org).
