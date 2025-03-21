@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'fontello';
-    src: url('/res/fontello.ttf') format('truetype'), url('/res/fontello.woff') format('woff');
+    src: url('res/fontello.ttf') format('truetype'), url('res/fontello.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
