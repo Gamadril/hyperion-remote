@@ -121,25 +121,34 @@
 
     function handleColorChange(event) {
         if (api) {
-            api.setColor(event.detail);
+            api.setColor(event.detail).catch((error) => {
+                console.error(error);
+                showMessage(error.message);
+            });
         }
     }
 
     function handleEffectSelect(event) {
         if (api) {
-            api.runEffect(event.detail);
+            api.runEffect(event.detail).catch((error) => {
+                showMessage(error.message);
+            });
         }
     }
 
     function handleClear() {
         if (api) {
-            api.clear();
+            api.clear().catch((error) => {
+                showMessage(error.message);
+            });
         }
     }
 
     function handleClearAll() {
         if (api) {
-            api.clearall();
+            api.clearall().catch((error) => {
+                showMessage(error.message);
+            });
         }
     }
 </script>
