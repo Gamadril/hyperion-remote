@@ -147,7 +147,7 @@
         setTimeout(() => {
             handleResize();
             window.addEventListener('resize', handleResize);
-        }, 100);
+        }, 700);
         return () => window.removeEventListener('resize', handleResize);
     });
 </script>
